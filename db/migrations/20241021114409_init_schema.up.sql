@@ -1,5 +1,5 @@
 CREATE TABLE `products` (
-  `id` int PRIMARY KEY NOT NULL,
+   `id` int AUTO_INCREMENT PRIMARY KEY NOT NULL,
   `name` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,

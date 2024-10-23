@@ -220,7 +220,7 @@ func TestUpdateProduct(t *testing.T) {
 				err = mock.ExpectationsWereMet()
 				require.NoError(t, err)
 
-				mock.ExpectExec("UPDATE products SET name=?, image=?, category=?, description=?, rating=?, num_reviews=?, price=?, count_in_stock=? WHERE id=?").WithArgs(np.Name, np.Image, np.Category, np.Description, np.Rating, np.NumReviews, np.Price, np.CountInStock, np.ID).WillReturnResult(sqlmock.NewResult(1, 1))
+				mock.ExpectExec("UPDATE products SET name=?, image=?, category=?, description=?, rating=?, num_reviews=?, price=?, count_in_stock=?, updated_at=? WHERE id=?").WithArgs(np.Name, np.Image, np.Category, np.Description, np.Rating, np.NumReviews, np.Price, np.CountInStock, np.UpdatedAt, np.ID).WillReturnResult(sqlmock.NewResult(1, 1))
 				up, err := st.UpdateProduct(context.Background(), np)
 				require.NoError(t, err)
 				require.Equal(t, int64(1), up.ID)
@@ -231,7 +231,7 @@ func TestUpdateProduct(t *testing.T) {
 		{
 			name: "error updating product",
 			test: func(t *testing.T, st *MySQLStorer, mock sqlmock.Sqlmock) {
-				mock.ExpectExec("UPDATE products SET name=?, image=?, category=?, description=?, rating=?, num_reviews=?, price=?, count_in_stock=? WHERE id=?").WithArgs(np.Name, np.Image, np.Category, np.Description, np.Rating, np.NumReviews, np.Price, np.CountInStock, np.ID).WillReturnError(fmt.Errorf("error updating product"))
+				mock.ExpectExec("UPDATE products SET name=?, image=?, category=?, description=?, rating=?, num_reviews=?, price=?, count_in_stock=?, updated_at=? WHERE id=?").WithArgs(np.Name, np.Image, np.Category, np.Description, np.Rating, np.NumReviews, np.Price, np.CountInStock, np.UpdatedAt, np.ID).WillReturnError(fmt.Errorf("error updating product"))
 				_, err := st.UpdateProduct(context.Background(), np)
 				require.Error(t, err)
 				err = mock.ExpectationsWereMet()
